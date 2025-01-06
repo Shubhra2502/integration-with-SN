@@ -2,7 +2,7 @@ name: Change Management Trigger
 
 on:
   repository_dispatch:
-    types: [change_update]
+    types: [change_update]  # Event type to trigger the workflow
 
 jobs:
   update:
@@ -10,3 +10,10 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
+
+      - name: Execute Task
+        run: |
+          echo "Triggered by ServiceNow change request."
+          echo "Change Request Sys ID: ${{github.event.client_payload.sys_id }}"
+          echo "Current State: ${{github.event.client_payload.state }}"
+          # Add your task execution logic here
